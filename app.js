@@ -1,3 +1,4 @@
+//Dev: Anas Asif
 /*
 GAME RULES:
 
@@ -8,3 +9,33 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
+
+
+
+var totalScores, roundScore, activePlayer, dice;
+
+totalScores = [];
+roundScore = 0;
+activePlayer = 0;
+
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
+diceDOM =document.querySelector('.dice') 
+diceDOM.style.display = 'none';
+
+//Event Listener with Anonymous function as 2nd param
+document.querySelector('.btn-roll').addEventListener('click', function(){
+
+    //1. Random Number
+    dice = Math.floor(Math.random() * 6) + 1;
+    
+    //2. Display Result
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-'+ dice + '.png';
+
+    //3. Update the score if rolled number is not 1
+
+
+})
