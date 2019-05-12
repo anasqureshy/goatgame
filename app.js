@@ -16,13 +16,13 @@ var totalScores, roundScore, activePlayer, dice;
 
 totalScores = [];
 roundScore = 0;
-activePlayer = 0;
+activePlayer = '0';
 
 document.getElementById('score-0').textContent = '0';
 document.getElementById('score-1').textContent = '0';
 document.getElementById('current-0').textContent = '0';
 document.getElementById('current-1').textContent = '0';
-diceDOM =document.querySelector('.dice') 
+diceDOM =document.querySelector('.dice'); 
 diceDOM.style.display = 'none';
 
 //Event Listener with Anonymous function as 2nd param
@@ -36,6 +36,40 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
     diceDOM.src = 'dice-'+ dice + '.png';
 
     //3. Update the score if rolled number is not 1
+    
+    if(dice !== 1){
+    roundScore += dice;
+    document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {
+    nextPlayer();
+}
 
 
-})
+
+
+});
+
+document.querySelector('.btn-hold').addEventListener('click', hold);
+
+function hold(){
+
+    totalScores[activePlayer] = roundScore;
+
+    document.getElementById('score-' + activePlayer).textContent = totalScores[activePlayer];
+
+    nextPlayer();
+}
+
+function nextPlayer(){
+    //Next Player
+    activePlayer === 1 ? activePlayer = 0 : activePlayer = 1;
+    roundScore = 0;
+    
+    document.getElementById('current-0').textContent = 0;
+    document.getElementById('current-1').textContent = 0;
+    
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+    diceDOM.style.display = 'none';
+
+}
