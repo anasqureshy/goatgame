@@ -152,3 +152,37 @@ i {
 
 .winner { background-color: #f7f7f7; }
 .winner .player-name { font-weight: 300; color: #EB4D4D; }
+
+input {
+left: 42%;
+position: absolute;
+border: none;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0 0 5px #666 inset;
+-moz-box-shadow: 0 0 5px #666 inset;
+box-shadow: 0px 0px 9px #666 inset;
+height: 25px;
+line-height: 25px;
+text-indent: 5px;
+}
+
+.custom_align {
+
+width: 80px;
+top: 78px;
+border-radius: 5px;
+
+}
+
+button.custom_button {
+    left: 55%;
+    outline: 1px solid #eb4d4d;
+    outline-offset: -2px;
+    background-color: antiquewhite;
+}
+
+.custom_button:hover{
+    outline: 3px solid #eb4d4d;
+}
