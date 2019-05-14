@@ -103,7 +103,7 @@ body {
     font-size: 30px;
 }
 
-button {
+button.default {
     position: absolute;
     width: 200px;
     left: 50%;
@@ -144,10 +144,20 @@ i {
 .dice {
     position: absolute;
     left: 50%;
-    top: 178px;
     transform: translateX(-50%);
     height: 100px;
     box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
+}
+
+#dice1 {
+
+    top: 145px;
+
+}
+
+#dice2 {
+
+    top: 275px;
 }
 
 .winner { background-color: #f7f7f7; }
@@ -177,12 +187,60 @@ border-radius: 5px;
 }
 
 button.custom_button {
-    left: 55%;
-    outline: 1px solid #eb4d4d;
-    outline-offset: -2px;
-    background-color: antiquewhite;
+    left: 51%;
+    border-radius: 5px;
+-webkit-box-shadow: 0 0 5px #eb4d4d inset;
+-moz-box-shadow: 0 0 5px #eb4d4d inset;
+box-shadow: 0px 0px 9px #eb4d4d inset;
+position: absolute;
+    color: #555;
+    background: none;
+    border: none;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;
+
 }
 
 .custom_button:hover{
-    outline: 3px solid #eb4d4d;
+    -webkit-box-shadow: 0 0 20px #eb4d4d inset;
+-moz-box-shadow: 0 0 20px #eb4d4d inset;
+box-shadow: 0px 0px 20px #eb4d4d inset;
 }
+
+.custom_button:active{
+    -webkit-box-shadow: 0 0 20px #4d76eb inset;
+-moz-box-shadow: 0 0 20px #4d76eb inset;
+box-shadow: 0px 0px 20px #4d76eb inset;
+}
+
+.disabled {
+    pointer-events: none;
+    -webkit-box-shadow: 0 0 20px #868686 inset;
+-moz-box-shadow: 0 0 20px #868686 inset;
+box-shadow: 0px 0px 20px #868686 inset !Important;
+}
+
+/* Credits for button animation: https://codepen.io/Paulooze/pen/qdygXB */
+.animate {
+
+    animation: jiggle 2s infinite;
+}
+
+@keyframes jiggle {
+    45%, 65% {
+      transform: scale(1.0, 1.0)
+    }
+    50% {
+      transform: scale(1.1, 0.9)
+    }
+    55% {
+      transform: scale(0.9, 1.1) translate(0, 5px)
+    }
+    60% {
+      transform: scale(1.0, 1.0) translate(0, -5px)
+    }
+  }

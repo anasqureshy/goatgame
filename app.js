@@ -12,35 +12,42 @@ GAME RULES:
 
 
 
-var totalScores, roundScore, activePlayer, dice;
-var gameOn;
-diceDOM =document.querySelector('.dice'); 
+var totalScores, roundScore, activePlayer, dice1, dice2, diceTotal, targetScore;
+var gameOn, targetSet;
+diceDOM =document.getElementsByClassName('dice'); 
 
 init();
 
 //Event Listener with Anonymous function as 2nd param
 document.querySelector('.btn-roll').addEventListener('click', function(){
+    if(targetSet){
+        gameOn = true;
+    } else {
+        alert('Set winning score first, to begin!');
+    }
+    
+    
     if(gameOn){
     //1. Random Number
-    dice = Math.floor(Math.random() * 6) + 1;
-    
+    dice1 = Math.floor(Math.random() * 6) + 1;
+    dice2 = Math.floor(Math.random() * 6) + 1;
+    console.log(dice1 + " " + dice2)
     //2. Display Result
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-'+ dice + '.png';
+    diceDOM[0].style.display = 'block';
+    diceDOM[0].src = 'dice-'+ dice1 + '.png';
 
+    diceDOM[1].style.display = 'block';
+    diceDOM[1].src = 'dice-'+ dice2 + '.png';
     //3. Update the score if rolled number is not 1
     
-    if(dice !== 1){
-    roundScore += dice;
+    if(dice1 !== 1 && dice2 !== 1){
+    diceTotal = dice1 + dice2
+    roundScore += diceTotal;
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
     nextPlayer();
     }
 }
-
-
-
-
 });
 
 document.querySelector('.btn-hold').addEventListener('click', hold);
@@ -51,12 +58,14 @@ function hold(){
     document.getElementById('score-' + activePlayer).textContent = totalScores[activePlayer];
 
     //Check if the player won the game
-    if(totalScores[activePlayer] >= 20){
+    if(totalScores[activePlayer] >= targetScore){
         gameOn = false;       
         document.getElementById('name-' + activePlayer).textContent = 'WINNER!'
         document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
         document.querySelector('.player-'+ activePlayer +'-panel').classList.add('winner');
-        diceDOM.style.display = 'none'; 
+        
+        for(var i =0; i<diceDOM.length; i++){
+        diceDOM[i].style.display = 'none'; }
     } else{
     nextPlayer();
     }
@@ -74,7 +83,9 @@ function nextPlayer(){
     
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
-    diceDOM.style.display = 'none';
+    
+    for(var i =0; i<diceDOM.length; i++){
+        diceDOM[i].style.display = 'none'; }
     }
 }
 
@@ -82,10 +93,12 @@ document.querySelector('.btn-new').addEventListener('click', init);
 
 
 function init(){
+
 totalScores = [0,0];
 roundScore = 0;
 activePlayer = '0';
-gameOn = true;
+gameOn = false;
+targetSet = false;
 document.getElementById('score-0').textContent = '0';
 document.getElementById('score-1').textContent = '0';
 document.getElementById('current-0').textContent = '0';
@@ -96,11 +109,17 @@ document.querySelector('.player-0-panel').classList.add('active');
 document.querySelector('.player-1-panel').classList.remove('active');
 document.querySelector('.player-0-panel').classList.remove('winner');
 document.querySelector('.player-1-panel').classList.remove('winner');
-diceDOM.style.display = 'none';
+toggleSet();
+document.querySelector('.custom_button').classList.add('animate')
 
-document.getElementById('name-0').textContent = 'Player 1'
-document.getElementById('name-1').textContent = 'Player 2'
+for(var i = 0; i<diceDOM.length; i++){
+diceDOM[i].style.display = 'none';}
+
+document.getElementById('name-0').textContent = 'Player 1';
+document.getElementById('name-1').textContent = 'Player 2';
+
 }
+
 
 /*
 YOUR 3 CHALLENGES
@@ -111,3 +130,27 @@ Change the game to follow these rules:
 3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: you will need CSS to position the second dice, so take a look at the CSS code for the first one.)
 */
 //Coding Challenge 6
+
+//Point Number 2
+document.querySelector('.custom_button').addEventListener('click', function() {
+
+    targetScore =  document.getElementById('target').value;
+
+    if(isNaN(targetScore)) {
+        alert("Enter valid number with value more than 20");
+    } else if (targetScore < 20) {
+        alert("Enter valid number with value more than 20");
+    } else {
+
+    targetSet = true;
+    gameOn = true;
+    
+    toggleSet();
+}
+});
+
+function toggleSet() {
+    document.querySelector('.custom_button').classList.remove('animate');
+    document.getElementById('target').classList.toggle('disabled');
+    document.querySelector('.custom_button').classList.toggle('disabled');
+}
